@@ -1,0 +1,387 @@
+\documentclass[a4paper,11pt]{article}
+\pdfoutput=1 % if your are submitting a pdflatex (i.e. if you have
+             % images in pdf, png or jpg format)
+
+\usepackage{jinstpub} % for details on the use of the package, please
+                     % see the JINST-author-manual
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or epsÂ§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{siunitx}
+
+\title{Journal of Instrumentation (JINST) template}
+
+
+%% %simple case: 2 authors, same institution
+%% \author{A. Uthor}
+%% \author{and A. Nother Author}
+%% \affiliation{Institution,\\Address, Country}
+
+% more complex case: 4 authors, 3 institutions, 2 footnotes
+\author[a,b,1]{F. Irst,\note{Corresponding author.}}
+\author[c]{S. Econd,}
+\author[a,2]{T. Hird\note{Also at Some University.}}
+\author[c,2]{and Fourth}
+
+% The "\note" macro will give a warning: "Ignoring empty anchor..."
+% you can safely ignore it.
+
+\affiliation[a]{One University,\\some-street, Country}
+\affiliation[b]{Another University,\\different-address, Country}
+\affiliation[c]{A School for Advanced Studies,\\some-location, Country}
+
+% e-mail addresses: only for the forresponding author
+\emailAdd{first@one.univ}
+
+
+
+
+\abstract{Abstract...}
+
+
+
+\keywords{Only keywords from JINST's keywords list please}
+
+
+\arxivnumber{1234.56789} % only if you have one
+
+
+% \collaboration{\includegraphics[height=17mm]{example-image}\\[6pt]
+%   XXX collaboration}
+% or
+\collaboration[c]{on behalf of XXX collaboration}
+
+
+% if you write for a special issue this may be useful
+\proceeding{N$^{\text{th}}$ Workshop on X\\
+  when\\
+  where}
+
+
+
+\begin{document}
+\maketitle
+\flushbottom
+
+\section{Some examples and best-practices}
+\label{sec:intro}
+
+For internal references use label-refs: see section~\ref{sec:intro}.
+Bibliographic citations can be done with cite: refs.~\cite{a,b,c}.
+When possible, align equations on the equal sign. The package
+\texttt{amsmath} is already loaded. See \eqref{eq:x}.
+\begin{equation}
+\label{eq:x}
+\begin{split}
+x &= 1 \,,
+\qquad
+y = 2 \,,
+\\
+z &= 3 \,.
+\end{split}
+\end{equation}
+Also, watch out for the punctuation at the end of the equations.
+
+
+If you want some equations without the tag (number), please use the available
+starred-environments. For example:
+\begin{equation*}
+x = 1
+\end{equation*}
+
+The amsmath package has many features. For example, you can use use
+\texttt{subequations} environment:
+\begin{subequations}\label{eq:y}
+\begin{align}
+\label{eq:y:1}
+a & = 1
+\\
+\label{eq:y:2}
+b & = 2
+\end{align}
+and it will continue to operate across the text also.
+\begin{equation}
+\label{eq:y:3}
+c = 3
+\end{equation}
+\end{subequations}
+The references will work as you'd expect: \eqref{eq:y:1},
+\eqref{eq:y:2} and \eqref{eq:y:3} are all part of \eqref{eq:y}.
+
+A similar solution is available for figures via the \texttt{subfigure}
+package (not loaded by default and not shown here).
+All figures and tables should be referenced in the text and should be
+placed on the page where they are first cited or in
+subsequent pages. Positioning them in the source file
+after the paragraph where you first reference them usually yield good
+results. See figure~\ref{fig:i} and table~\ref{tab:i}.
+
+\begin{figure}[htbp]
+\centering % \begin{center}/\end{center} takes some additional vertical space
+\includegraphics[width=.4\textwidth,trim=30 110 0 0,clip]{example-image-a}
+\qquad
+\includegraphics[width=.4\textwidth,origin=c,angle=180]{example-image-b}
+% "\includegraphics" from the "graphicx" permits to crop (trim+clip)
+% and rotate (angle) and image (and much more)
+\caption{\label{fig:i} Always give a caption.}
+\end{figure}
+
+
+\begin{table}[htbp]
+\centering
+\caption{\label{tab:i} We prefer to have borders around the tables.}
+\smallskip
+\begin{tabular}{|lr|c|}
+\hline
+x&y&x and y\\
+\hline
+a & b & a and b\\
+1 & 2 & 1 and 2\\
+$\alpha$ & $\beta$ & $\alpha$ and $\beta$\\
+\hline
+\end{tabular}
+\end{table}
+
+We discourage the use of inline figures (wrapfigure), as they may be
+difficult to position if the page layout changes.
+
+We suggest not to abbreviate: ``section'', ``appendix'', ``figure''
+and ``table'', but ``eq.'' and ``ref.'' are welcome. Also, please do
+not use \texttt{\textbackslash emph} or \texttt{\textbackslash it} for
+latin abbreviaitons: i.e., et al., e.g., vs., etc.
+
+
+
+\section{Sections}
+\subsection{And subsequent}
+\subsubsection{Sub-sections}
+\paragraph{Up to paragraphs.} We find that having more levels usually
+reduces the clarity of the article. Also, we strongly discourage the
+use of non-numbered sections (e.g.~\texttt{\textbackslash
+  subsubsection*}).  Please also see the use of
+``\texttt{\textbackslash texorpdfstring\{\}\{\}}'' to avoid warnings
+from the hyperref package when you have math in the section titles
+
+
+
+\appendix
+\section{Some title}
+Please always give a title also for appendices.
+
+
+
+
+
+\acknowledgments
+
+This is the most common positions for acknowledgments. A macro is
+available to maintain the same layout and spelling of the heading.
+
+\paragraph{Note added.} This is also a good position for notes added
+after the paper has been written.
+
+
+\section{Introduction}
+Here we give an intro to the PM: in which context it will be used and what it is. Briefly talk about previous works and what's new in our work. 
+
+\section{Experimental setup}
+\subsection{The purity monitor}
+\subsection{The gas system and the chamber}
+
+
+\section{Test in vacuum with different cathodes}
+
+\section{Determination of the electron lifetime}
+\subsection{Preamplifier correction factor}
+
+
+\section{Conclusion}
+
+
+%**********************************************
+\section{Preamplifier correction factor}
+%**********************************************
+\begin{equation}
+V_{out} (t) = \int dt' G(t-t') I(t') 
+\end{equation}
+
+\begin{equation}
+G(t) = G_0 \Theta(t) e^{-\frac{t}{\tau{el}}}
+\end{equation}
+
+\begin{align}
+ I(t) &=
+  \begin{cases}
+   \frac{Q v_e}{d}        & 0 \leq t \leq t_{drift} \\
+   0        			& t > t_{drift}
+  \end{cases}
+ \end{align}
+
+\begin{equation}
+V_{out}(t) = G_0 Q \frac{
+\left(e^{-\frac{t}{\tau_{el}}}-e^{-\frac{t}{\tau_{life}}}\right)
+}{
+\frac{t_{drift}}{\left (\frac{1}{\tau_{life}}-\frac{1}{\tau_{el}}\right )^{-1}}
+}
+\end{equation}
+
+
+A charge sensitive preamplifier is an active integrator which takes a current pulse as input and returns a voltage pulse as output. The maximum of the output voltage is proportional to the input charge (i.e. the integrated current). A feedback capacitor $C_f$ between the input and output stores the charge from the detector and amplifies it with gan $1/C_f$ (see later). 
+
+Let us call $g(t)$ the input quantity (current pulse in our case) and $f(t')$ the output quantity (peak of the voltage output in our case). 
+In general if the inputs $f_k(t')$ give $g_k(t)$ outputs, then the input $\sum_k c_k f_k (t')$ yields the output $\sum_k c_k g_k (t)$ due to the linearity of the equations describing the circuit. 
+
+Therefore:
+\begin{equation}
+g(t) = \int dt' K(t,t') f(t')
+\label{eq:kernel}
+\end{equation}
+for some function K, called ``kernel''. Electrical circuits usually operate in stationary conditions, hereby we expect that the input $f(t'-t)$ gives the output $g(t-t_0)$, that is to say that if $f$ oscillates with frequency $\omega$, $g$ too will be oscillating with that same frequency. This holds true if the kernel  depends on $t,t'$ through the difference $t-t'$:
+\begin{equation}
+g(t) = \int dt' G(t-t') f(t')
+\end{equation}
+where $G$ is called ``Green function''. So the output is given by the convolution of the Green function with the input. Incidentally, the Green function is the output observed when the input is $f(t') = \delta(t')$. In this case the convolution gives $g(t) = G(t)$. So when the input current is quick, i.e. the drift time from cathode to cathode-grid is short (this happens when the electric field is high enough), the output voltage is practically the Green function. 
+
+To calculate the charge we need to know the Green function. In RC circuits the Green function is a decreasing exponential (this can be experimentally seen in vacuum for our system):
+\begin{equation}
+G(t) = G_0 \Theta(t) e^{-\frac{t}{RC}}
+\end{equation}
+where R and C are the resistance and the capacitance of the circuit respectively. We can then define $\tau_{el}$ to be the ``electronic decay time'' specific to the system to be:
+\begin{equation}
+\tau_{el} = RC
+\end{equation}
+The input function $f(t')$ in eqn \ref{eq:kernel} is the the current circulating in the preamp coming from the detector, which is a step function:
+\begin{align}
+ I(t) &=
+  \begin{cases}
+   \frac{Q v_e}{d}        & 0 \leq t \leq t_{drift} \\
+   0        			& t > t_{drift}
+  \end{cases}
+\end{align}
+where $Q$ is the charge extracted from the photocathode and $t_{drift} = \frac{d}{v_e}$ is the time it takes the electrons to go from the photocathode to the cathode-grid ($d$ is the distance cathode to cathode-grid and $v_e$ is the electron velocity at specific field $E$).
+Note that we are assuming the electrons move at constant speed between cathode and grid (i.e. no acceleration) and that after $t_{drfit}$ they are not seen by the preamplifier anymore due to the electric field screening.
+
+Then:
+\begin{equation}
+V_{out} (t) = \int dt' G(t-t') I(t')
+\end{equation}
+doing the integral gives:
+\begin{equation}
+V_{out} (t) = G_0 \frac{Q}{t_{drift}} \tau_{el} \left (1-e^{-\frac{t}{\tau_{el}}} \right ) \Theta(t_{drift}-t) \Theta(t)
+\end{equation}
+Where $I_0 = \frac{Q v_e}{d}$. If we fix a value for $t_{drift}$, then the maximum of this function is reached for:
+\begin{equation}
+V_{peak} = V_{out} (t_{drift}) = G_0 \frac{Q}{t_{drift}}\tau_{el} \left (1-e^{-\frac{t_{drift}}{\tau_{el}}} \right)
+\end{equation}
+note that $G_0$ is simply a  conversion factor, which converts the input charge into a voltage. Therefore $G_0$ has the units of the inverse of a capacitance. This is precisely the feedback capacitance, which, for our preamps, is 0.1 pF. 
+Rearranging the above equation we get:
+\begin{equation}
+V_{peak} = V_{out} (t_{drift}) = G_0 Q \frac{1-e^{-\frac{t_{drift}}{\tau_{el}}}}{\frac{t_{drift}}{\tau_{el}}}
+\label{eq:V_peak_final}
+\end{equation}
+The last factor is the correction that needs to be applied to get the real $V_{peak}$ (need to divide the measure voltage peak by the last factor in the equation above).
+
+Now, $\tau_{el}$ is associated with a physical process (the preamp discharging before all the charge has traversed the gird-cathode) which is responsible for an electron depletion. Another process contributes to the electron depletion and this is the electronegative impurities present in the liquid which may trap electrons on their way up from the photocathode to the grid-cathode. Let's call the decay time constant associated with this process $\tau_{life}$.
+The electron depletion then obeys the following differential equation:
+\begin{equation}
+dN/dt = -(\lambda_{el} N + \lambda_{life} N) = - (\lambda_{el} + \lambda_{life}) N
+\end{equation}
+with $\lambda_{el}=1/\tau_{el}$ and $\lambda_{life}=1/\tau_{life}$
+the solution to this equation is the usual decreasing exponential:
+\begin{equation}
+N(t) = N_0 \exp{-\lambda t}
+\end{equation}
+where $\lambda = \lambda_{el} + \lambda_{life}$ corresponds to a ``compounded" decay rate. Since $\lambda$ is the inverse of the decay time, then we have that:
+\begin{equation}
+\lambda = \frac{1}{\tau} = \lambda_{el} + \lambda_{life} = \frac{1}{\tau_{el}} + \frac{1}{\tau_{life}}
+\end{equation}
+Thus, eqn \ref{eq:V_peak_final} becomes:
+\begin{equation}
+V_{peak} = V_{out} (t_{drift}) = G_0 Q \frac{1-e^{-\frac{t}{(\frac{1}{\tau_{el}}+\frac{1}{\tau_{life}})^{-1}}}}{\frac{t_{drift}}{(\frac{1}{\tau_{el}}+\frac{1}{\tau_{life}})^{-1}}}
+\end{equation}
+
+I think the correct equation is actually the following:
+\begin{equation}
+V_{out}(t) = G_0 Q \frac{
+\left(e^{-\frac{t}{\tau_{el}}}-e^{-\frac{t}{\tau_{life}}}\right)
+}{
+\frac{t_{drift}}{\left (\frac{1}{\tau_{life}}-\frac{1}{\tau_{el}}\right )^{-1}}
+}
+\end{equation}
+
+
+
+%**********************************************
+\section{Electron drift velocity in LAr}
+%**********************************************
+To calculate the electron drift velocity in LAr, use the "ICARUS polynomial fit" for fields below 500 V/cm; use the "Walkoviac function for fields above 500 V/cm". I report only the ICARUS polynomial fit as we are never above 500 V/cm.
+
+The ICARUS polynomial is as follows:
+\begin{equation}
+v(E) = (p_0 + p_1 E + p_2 E^2 + p_3 E^3 + 
+    p_4 E^4 + p_5 E^5) \times K_2/K_1
+\end{equation}  
+where $E$ is in \textbf{kV/cm}, and $K_2$ and $K_1$ are defined as:
+\begin{align}
+& K_1 = p_0 + p_1 \widetilde{E} + p_2 \widetilde{E}^2 + p_3 \widetilde{E}^3 + 
+   p_4 \widetilde{E}^4 + p_5 \widetilde{E}^5;\\
+&K_2 = \left(w_1 (T - T_0) + 1\right) \left(w_3 \widetilde{E} \log[1 + w_4/\widetilde{E}] + w_5 \widetilde{E}^{w_6}\right) + 
+   w_2 (T - T_0);
+\end{align}
+with $\widetilde{E} = 0.5$, $T=89$\,K, $T_0 = 90.371$\,K and the parameters $p_0 ... p_5, w_1...w_5 $ are:
+\begin{equation}
+\begin{aligned}
+&p_0 = -0.03229;\\
+&p_1 = 6.231;\\
+&p_2 = -10.62;\\
+&p_3 = 12.74;\\
+&p_4 = -9.112;\\
+&p_5 = 2.83;\\
+\end{aligned}
+\;\;\;\;\;\;\;\;
+\begin{aligned}
+&w_1 = -0.01481;\\
+&w_2 = -0.0075;\\
+&w_3 = 0.141;\\
+&w_4 = 12.4;\\
+&w_5 = 1.627;\\
+&w_6 = 0.317;
+\end{aligned}
+\end{equation} 
+
+
+
+
+
+
+% We suggest to always provide author, title and journal data:
+% in short all the informations that clearly identify a document.
+
+\begin{thebibliography}{99}
+
+\bibitem{a}
+Author, \emph{Title}, \emph{J. Abbrev.} {\bf vol} (year) pg.
+
+\bibitem{b}
+Author, \emph{Title},
+arxiv:1234.5678.
+
+\bibitem{c}
+Author, \emph{Title},
+Publisher (year).
+
+
+% Please avoid comments such as "For a review'', "For some examples",
+% "and references therein" or move them in the text. In general,
+% please leave only references in the bibliography and move all
+% accessory text in footnotes.
+
+% Also, please have only one work for each \bibitem.
+\end{document}
+
+\end{thebibliography}
