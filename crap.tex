@@ -1,0 +1,80 @@
+%**********************************************
+\section{Electron drift velocity in LAr}
+%**********************************************
+To calculate the electron drift velocity in LAr, use the "ICARUS polynomial fit" for fields below 500 V/cm; use the "Walkoviac function for fields above 500 V/cm". I report only the ICARUS polynomial fit as we are never above 500 V/cm.
+
+The ICARUS polynomial is as follows:
+\begin{equation}
+v(E) = (p_0 + p_1 E + p_2 E^2 + p_3 E^3 + 
+    p_4 E^4 + p_5 E^5) \times K_2/K_1
+\end{equation}  
+where $E$ is in \textbf{kV/cm}, and $K_2$ and $K_1$ are defined as:
+\begin{align}
+& K_1 = p_0 + p_1 \widetilde{E} + p_2 \widetilde{E}^2 + p_3 \widetilde{E}^3 + 
+   p_4 \widetilde{E}^4 + p_5 \widetilde{E}^5;\\
+&K_2 = \left(w_1 (T - T_0) + 1\right) \left(w_3 \widetilde{E} \log[1 + w_4/\widetilde{E}] + w_5 \widetilde{E}^{w_6}\right) + 
+   w_2 (T - T_0);
+\end{align}
+with $\widetilde{E} = 0.5$, $T=89$\,K, $T_0 = 90.371$\,K and the parameters $p_0 ... p_5, w_1...w_5 $ are:
+\begin{equation}
+\begin{aligned}
+&p_0 = -0.03229;\\
+&p_1 = 6.231;\\
+&p_2 = -10.62;\\
+&p_3 = 12.74;\\
+&p_4 = -9.112;\\
+&p_5 = 2.83;\\
+\end{aligned}
+\;\;\;\;\;\;\;\;
+\begin{aligned}
+&w_1 = -0.01481;\\
+&w_2 = -0.0075;\\
+&w_3 = 0.141;\\
+&w_4 = 12.4;\\
+&w_5 = 1.627;\\
+&w_6 = 0.317;
+\end{aligned}
+\end{equation} 
+
+
+The electron depletion then obeys the following differential equation:
+\begin{equation}
+dN/dt = -(\lambda_{el} N + \lambda_{life} N) = - (\lambda_{el} + \lambda_{life}) N
+\end{equation}
+with $\lambda_{el}=1/\tau_{el}$ and $\lambda_{life}=1/\tau_{life}$
+the solution to this equation is the usual decreasing exponential:
+\begin{equation}
+N(t) = N_0 \exp{-\lambda t}
+\end{equation}
+where $\lambda = \lambda_{el} + \lambda_{life}$ corresponds to a ``compounded" decay rate. Since $\lambda$ is the inverse of the decay time, then we have that:
+\begin{equation}
+\lambda = \frac{1}{\tau} = \lambda_{el} + \lambda_{life} = \frac{1}{\tau_{el}} + \frac{1}{\tau_{life}}
+\end{equation}
+Thus, eqn \ref{eq:V_peak_final} becomes:
+\begin{equation}
+V_{peak} = V_{out} (t_d) = G_0 Q \frac{1-e^{-\frac{t}{(\frac{1}{\tau_{el}}+\frac{1}{\tau_{life}})^{-1}}}}{\frac{t_d}{(\frac{1}{\tau_{el}}+\frac{1}{\tau_{life}})^{-1}}}
+\end{equation}
+
+\begin{equation}
+V_{out} (t) = \int dt' G(t-t') I(t') 
+\end{equation}
+
+\begin{equation}
+G(t) = G_0 \Theta(t) e^{-\frac{t}{\tau{el}}}
+\end{equation}
+
+\begin{align}
+ I(t) &=
+  \begin{cases}
+   \frac{Q v_e}{d}        & 0 \leq t \leq t_d \\
+   0        			& t > t_d
+  \end{cases}
+ \end{align}
+
+\begin{equation}
+V_{out}(t) = G_0 Q \frac{
+\left(e^{-\frac{t}{\tau_{el}}}-e^{-\frac{t}{\tau_{life}}}\right)
+}{
+\frac{t_d}{\left (\frac{1}{\tau_{life}}-\frac{1}{\tau_{el}}\right )^{-1}}
+}
+\end{equation}
