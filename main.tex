@@ -1,4 +1,4 @@
- \documentclass[a4paper,11pt]{article}
+\documentclass[a4paper,11pt]{article}
 \pdfoutput=1 % if your are submitting a pdflatex (i.e. if you have
              % images in pdf, png or jpg format)
 
@@ -9,17 +9,19 @@
 
 \usepackage{epsfig}
 \usepackage{amssymb}
-\usepackage{subfigure}
 \usepackage{lineno}
 \usepackage{amsmath}
 \usepackage{siunitx}
-\usepackage[colorlinks=true,
-            linkcolor=red,
-            urlcolor=blue,
-            citecolor=green]{hyperref}
+\usepackage{xspace}
 \usepackage{url}
 \usepackage{textgreek}
 \usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{rotating}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{mwe}
 
 % The number `e'
 \providecommand*{\eu}%
@@ -57,29 +59,23 @@
 {\bfseries\scshape}{\theparagraph}{1em}{}
 \setcitestyle{square}
 
+
+\newcommand{\QC}{\ensuremath{Q_{\rm C}}\xspace}
+\newcommand{\QA}{\ensuremath{Q_{\rm A}}\xspace}
+\newcommand{\taulife}{\ensuremath{\tau_{\rm life}}\xspace}
+
 \date{\today}
 
-\title{Performance of different photocathode materials in liquid argon purity monitors}
+\title{Performance of different photocathode materials in a liquid argon purity monitor}
 
-
-%% %simple case: 2 authors, same institution
-%% \author{A. Uthor}
-%% \author{and A. Nother Author}
-%% \affiliation{Institution,\\Address, Country}
-
-% more complex case: 4 authors, 3 institutions, 2 footnotes
 \author[a,b,1]{Laura Manenti,\note{Corresponding author.}}
+\author[b]{Linda Cremonesi,}
 \author[b]{Anastasia Basharina-Freshville,}
 \author[b]{Francesco Arneodo,}
 \author[b]{Mario Campanelli,}
-\author[b]{Linda Cremonesi,}
 \author[b]{Anna Holin,}
-\author[b]{Sameer Al-Kilani,}
 \author[b]{Ryan Nichol,}
 \author[b]{Ruben Saakyan}
-
-% The "\note" macro will give a warning: "Ignoring empty anchor..."
-% you can safely ignore it.
 
 \affiliation[a]{Division of Science, New York University Abu Dhabi, 
 Saadiyat Island, Abu Dhabi, U.A.E.}
@@ -90,84 +86,89 @@ Saadiyat Island, Abu Dhabi, U.A.E.}
 
 
 
-\abstract{Abstract...}
-
-
+\abstract{Abstract needs to be written. The jist should be something like, we tried four different photocathode materials in vacuum. Aluminum and titanium performed much worse than gold, whereas silver performed better than (or similar level) to gold so we proceeded to test silver in liquid argon.}
 
 \keywords{Only keywords from JINST's keywords list please}
 
-
-%\arxivnumber{1234.56789} % only if you have one
-
+%\arxivnumber{} % only if you have one
 
 \begin{document}
+
 \maketitle
+
 \flushbottom
 
 %**********************************************
 \section{Introduction}
 %**********************************************
-Liquid Argon Time Projection Chambers (LAr-TPCs) are the detection technology foreseen for the Far Detectors (FD) in the Deep Underground Neutrino Experiment (DUNE). 
-An R\&D programme currently underway at CERN operates two prototype detectors of the kind that will be employed by DUNE. Both use LAr-TPCs as detection technique, with one prototype, called Single-Phase (SP) protoDUNE, only using liquid argon, and the other, named Dual-Phase (DP) protoDUNE, using argon in both its gaseous and liquid state. The work presented in this paper is part of the dual-phase protoDUNE effort.
+%Liquid Argon Time Projection Chambers (LAr-TPCs) are the detection technology foreseen for the Far Detectors (FD) in the Deep Underground Neutrino Experiment (DUNE)~\cite{IDRvol2}. 
+%%An R\&D programme currently underway at CERN operates two prototype detectors of the kind that will be employed by DUNE. Both use LAr-TPCs as the detection technique, with one prototype, called Single-Phase (SP) protoDUNE, only using liquid argon, and the other, named Dual-Phase (DP) protoDUNE, using argon in both its gaseous and liquid state. The work presented in this paper is part of the Dual-Phase protoDUNE effort.
 
-Scintillation photons and ionisation charge are produced along the track of ionising particles passing through the liquid argon volume. In a dual-phase LAr-TPC the electron ionisation charge is drifted upwards and extracted into the gaseous phase. Here, Large Electron Multipliers (LEMs) amplify the charge signal which is then read by the anode, allowing for a 2D image reconstruction of the track. It is obvious that a minimal concentration of electronegative impurities is needed for the electron ionisation charge to reach the LAr surface in the first place.
-With a drift distance of \SI{\approx 6}{\m}, the DP protoDUNE needs an the lifetime of the drifting electrons to be at least \SI{6}{ms}, which requires electronegative impurities in the liquid to be below the ppb level. 
+Liquid Argon Time Projection Chambers (LAr-TPCs) are the detection technology chosen by many neutrino experiments, like the currently running ICARUS~\cite{Amoruso:2004ti}, MicroBooNE~\cite{Acciarri:2016smi}, and SBND, and the future world flagship experiment for neutrino oscillations, DUNE (the Deep Underground Neutrino Experiment)~\cite{abi2017singlephase}. %Add better acronyms and citations
+Liquid argon is an ideal neutrino target for it dense (40\% denser than water), inert, and relatively cheap compared to other noble liquids (e.g. xenon). 
 
-Although the detector itself can estimate the lifetime of the drifting electrons by measuring the charge deposited by muon tracks, this depends on the availability of muons traversing the TPC (whose frequency is greatly reduced underground) and is only possible when the cryostat is fully filled and a certain level of liquid argon purity is achieved. Moreover, space-charge effects may distort the lifetime measurement. In fact, for each electron drifting to the cathode, there is a positive ion drifting to the anode. But, as positive ions are about one hundred-thousand times slower than electrons and the flow of cosmic muons is continuous, positive charges accumulate in the TPC. This charge build-up, usually referred to as space-charge, leads to field lines distortions and, subsequently, to distortions in the reconstructed track image. The effect is greater for bigger TPC volumes and at lower fields.
-Commercially available Residual Gas Analysers (RGAs) are generally used for analysing the gas argon purity in the cryostat ullage. Unfortunately, as their sensitivity only goes down to the \SI{\approx 10}{ppb}, they are unsuitable to infer the purity of the liquid, which, as mentioned earlier, is aimed to be below the ppb level. 
-That is why custom-made devices, called purity monitors, have been designed and constructed. 
-Purity monitoring is especially useful while filling the cryostat and when recirculation is turned on: at that point electronegative impurities should constantly drop over time until stable operation conditions are reached. 
-Because of the scale of the detector, sudden changes in the purity might go unnoticed, putting at risk the detector data taking. Purity monitors also mitigate against such risks. 
+In LAr-TPCs, scintillation photons and charges are produced along the track of ionising particles passing through the liquid argon volume. %A field-shaping cage around the drift perimeter with a uniform electric field ensures that the ionisation electrons are drifted from the production point towards the readout electronics. In a single-phase Lar-TPC, argon is only in the liquid phase, and ionisation electrons are drifted through the electric field directly towards wire planes.  In a dual-phase LAr-TPC the electron ionisation charge is drifted upwards and extracted into the gaseous phase. Here, Large Electron Multipliers (LEMs) amplify the charge signal which is then read out by the anode, allowing for a 2D image reconstruction of the track.
+To allow the electron ionisation charges to travel freely across the liquid argon and reach the readout electronics, the concentration of electronegative impurities must be minimal.
 
-Purity monitors have so far been successfully deployed in the ICARUS, MicroBooNE, 35t~\cite{IDRvol2}, and SP protoDUNE detectors.
-The purity monitor presented in this work closely resembles the ICARUS design with a few---fundamental---modifications and is one of the two purity monitors that have been deployed and successfully operated in the DP protoDUNE\footnote{Currently, the two purity monitors are taking data twice a day. Both located in the same corner, one was installed on the bottom of cryostat and one at \SI{2.5}{\metre} above the bottom membrane}.
+An indirect way to estimate the liquid argon purity is to measure the lifetime of the drifting electrons (see Section~\ref{subsec:attachment}). 
+For example, in ProtoDUNE dual-phase (DP)--the prototype for the DUNE dual-phase far detector, the drift distance is \SI{\approx 6}{\m}. The lifetime of the drifting electrons needs to be at least \SI{6}{ms}, which requires electronegative impurities in the liquid to be below the ppb level.
+  
+Commercially available Residual Gas Analysers (RGAs) are generally used for analysing the gas argon purity in the cryostat ullage. Their sensitivity only goes down to the \SI{\approx 10}{ppb} making them unsuitable for inferring the purity of the liquid argon, which, as mentioned earlier, is required to be below the ppb level. 
 
-%Explain in two lines how they work. That you need light to emit the electrons, but light suffers from attenuation. This means that better cathodes are the KEY. That's why this work. 
-A purity monitor works by generating electrons from a cathode and drifting them towards an anode. The attenuation in the charge from cathode to anode gives a direct measurement of the lifetime of the drifting electrons in the liquid. Mathematically this can be approximately described by the following equation 
+The LAr-TPC itself can estimate the lifetime of the drifting electrons by measuring the charge deposited in it by muons. However, this is dependent on the availability of muons traversing the TPC, the frequency of which is greatly reduced underground where LAr-TPCs are usually located. The cryostat must also be fully filled and a certain level of liquid argon purity achieved in order to make the measurement. In addition, space-charge effects induced by positive ions may distort the lifetime measurement. For each electron drifting to the cathode, there is a positive ion drifting to the anode, but, as positive ions are about one hundred-thousand times slower than electrons and the flow of cosmic muons is continuous, positive charges accumulate in the TPC. This charge build-up, usually referred to as space-charge, leads to field line distortions and, subsequently, to distortions in the reconstructed track image. The effect is greater for bigger TPC volumes and at lower fields~\cite{Romero2017}.
+
+For this reason custom-made devices, known as purity monitors, have been designed and constructed to measure the liquid argon purity. 
+Purity monitoring is especially useful while filling the cryostat and when recirculation of the liquid argon is turned on, at which point electronegative impurities are expected to constantly drop over time until stable operation conditions are reached. 
+Due to the scale of the detector sudden changes in the purity could go unnoticed, putting the detector data taking at risk. Purity monitors also mitigate against such risks. 
+
+Purity monitors have so far been successfully deployed in the ICARUS, MicroBooNE, 35-ton~\cite{IDRvol2,Wallbank:2017hfw}, and ProtoDUNE single-phase detectors~cite{abi2017singlephase}.
+The purity monitor presented in this work closely resembles the ICARUS design with a few fundamental modifications, and it is one of the two purity monitors that have been deployed and successfully operated in the ProtoDUNE DP detector. Currently, the two purity monitors are taking data twice a day. Both located in the same corner, one was installed on the bottom of cryostat and one at \SI{2.5}{\metre} above the bottom membrane.
+
+%**********************************************
+\section{Working principle of purity monitors}
+\label{sec:purity_monitors}
+%**********************************************
+A purity monitor works by generating electrons from a cathode and drifting them towards an anode. 
+The attenuation in the charge from cathode to anode gives a direct measurement of the lifetime of the drifting electrons in the liquid.
+Mathematically this can be approximately described by the following equation \QC :
 \begin{equation}
-    Q_\text{A} = Q_\text{C} \exp{-t/\tau}
+    \QA = \QC \exp{-t/\taulife} \,,
 \end{equation}
-where $Q_\text{A}$ is the charge as measured at the anode, $Q_\text{C}$ is the charge as measured at the cathode, $t$ is the drift time in between cathode and anode, and $\tau$ is the lifetime of the drifting electrons. Note that this equation is only approximate and a more rigorous formula will be given in \ref{sec:calculation_lifetime}.
-It is common practice to produce the electrons at the cathode in the following way: a xenon flash lamp is placed outside the cryostat and coupled through a quartz optical fibre to a gold-coated cathode, where the UV photons extract electrons by photoelectric effect. Traditionally gold is the ``standard'' choice for LAr purity monitors given it does not easily oxidise.
-One major caveat of this setup is that only a tiny portion of the photons emitted by the xenon flash lamp---which has a broad spectrum ranging from 200 to \SI{2000}{nm}---can extract photons from the gold, namely the ones whose energy exceeds the gold work function, i.e. $\approx$\SI{5.1}{\eV} or equivalently $\approx$\SI{243}{nm}. Moreover, as the intensity of the flashes is attenuated by \SI{1}{\dB} for every \SI{1}{m} of optical fibre, the longer the fibre the fewer the photons that make it from the lamp to the cathode. 
+\noindent where \QA is the charge as measured at the anode, \QC is the charge as measured at the cathode, $t$ is the drift time in between cathode and anode, and \taulife is the lifetime of the drifting electrons. Note that this equation is only approximate and a more rigorous formula will be given in \ref{subsec:calculation_lifetime}.
 
-This work compares for the first time the performance of various photocathodes, specifically gold, titanium, silver, and aluminium. Our results show that silver gives the best results in liquid argon, with the silver signal being x bigger than gold (the ``reference'' material). This is very useful especially in light of DUNE, where purity monitors at the bottom of the cryostat may only work if enough electrons are emitted by the photocathode in the first place. The lifetime of the drifting electrons as a function of the drift electric field has also been measured in the 50--\SI{200}{V/cm} range. %this shows that the attachement coefficient of O2 in LAr does not vary in this range (write this later).
-%We also measure for the first time the extracted charge as a function of E1. 
+Purity monitors use the photoelectric effect to emit electrons from a photocathode. This work compares for the first time the performance of various photocathodes, specifically gold, titanium, silver, and aluminium. Our results show that silver gives the best results in liquid argon, with the silver signal being up to three times as bigger than gold (considered the ``reference'' material). This is very useful especially in light of DUNE, where purity monitors at the bottom of the cryostat can only work if enough electrons are emitted by the photocathode in the first place. 
+Section~\ref{sec:experimental_setup} shows the experiment setup used at University College London (UCL). 
+Section~\ref{sec:calculation_lifetime} explains how the lifetime of drifting electrons is calculated using purity monitors.
+Sections~\ref{sec:tests_vacuum} and ~\ref{sec:tests_liquid} present the results of tests done in vacuum and in liquid argon at UCL. The lifetime of the drifting electrons as a function of the drift electric field has been measured in the 50--\SI{200}{V/cm} range. %this shows that the attachment coefficient of O2 in LAr does not vary in this range (write this later).
+We also measure for the first time the extracted charge as a function of the electric fields at low field values. 
 The possibility of using the purity monitor with a \SI{25}{m} quartz fibre is also established for the first time.  
 
 The reader should note that in the rest of the letter, we may refer to the lifetime of the electrons drifting in liquid argon as simply ``lifetime'' for brevity reasons. 
 
 %**********************************************
 \section{Experimental setup}
+\label{sec:experimental_setup}
 %**********************************************
 \subsection{The purity monitor}
-The xenon flash lamp is the L7685 from Hamamatsu. The lamp comes with a cooling jacket (p/n~E6611) which hosts the xenon bulb, a trigger socket (p/n E6647) and power supply (p/n C6096-02) which provide the high voltage to trigger the spark of the gas in the bulb, and an external discharge capacitor (p/n E7289-02) which allows the lamp to run at \SI{1}{\joule} per flash. A \SI{24}{V_{dc}} voltage with a capacity of \SI{3}{A} is supplied externally to both the cooling jacket and the power supply. The lamp may be triggered in external or internal mode. For the latter, an internal trimmer may be adjusted to set the flash repetition rate. In this work, the lamp was triggered externally by using a pulse generator (pulse mode, at \SI{5}{Hz}, with \SI{5}{V_{PP}} in amplitude, and \SI{1}{\micro s} in width) connected to the Hamamatsu trigger socket. The pulse generator also provided the trigger to the oscilloscope. 
+
+Figure~\ref{fig:schematic_PM} shows the schematics of our purity monitor design.
+It is common practice to produce the electrons at the cathode using the photoelectric effect: a xenon flash lamp is placed outside the cryostat and coupled through a quartz optical fibre to a gold-coated cathode, where the UV photons extract electrons by photoelectric effect. Traditionally gold is the ``standard'' choice for LAr purity monitors given it does not easily oxidise.
+One major caveat of this setup is that only a tiny portion of the photons emitted by the xenon flash lamp---which has a broad spectrum ranging from 200 to \SI{2000}{nm}---can extract photons from the gold, namely the ones whose energy exceeds the gold work function, i.e. $\approx$\SI{5.3}{\eV}~\cite{SACHTLER1966221} or equivalently $\approx$\SI{234}{nm}. Moreover, as the intensity of the flashes is attenuated by \SI{1}{\dB} for every \SI{1}{m} of optical fibre, the longer the fibre the fewer the photons that make it from the lamp to the cathode. 
+
+
+The xenon flash lamp is the L7685 from Hamamatsu. The lamp comes with a cooling jacket (p/n~E6611) which hosts the xenon bulb, a trigger socket (p/n E6647) and power supply (p/n C6096-02) which provide the high voltage to trigger the spark of the gas in the bulb, and an external discharge capacitor (p/n E7289-02) which allows the lamp to run at \SI{1}{\joule} per flash. A \SI{24}{V_{dc}} voltage with a capacity of \SI{3}{A} is supplied externally to both the cooling jacket and the power supply. The lamp may be triggered in external or internal mode. For the latter, an internal trimmer may be adjusted to set the flash repetition rate. In this work, the lamp was triggered externally by using a pulse generator (pulse mode, at \SI{5}{Hz}, with \SI{5}{V_{PP}} in amplitude, and \SI{1}{\micro s} in width) connected to the Hamamatsu trigger socket. The pulse generator also provided the trigger to the oscilloscope used to record the cathode and anode traces. 
 
 The optical fibre which couples the cathode to the lamp is made of fused silica and coated in Polyimide. It has a core diameter of \SI{600}{\micro m} and is transparent in the 190--\SI{1250}{nm} range. The minimum (continuous) bending radius is \SI{132}{mm} which makes the fibre quite fragile to handle. According to the supplier's datasheet, the attenuation at \SI{\approx 250}{nm} is \SI{\approx 0.3}{dB\per\metre}, meaning that for a \SI{25}{m} long fibre the light loss due to attenuation is of around 80\%. 
 %http://www.timbercon.com/db-power-loss/
 
-%%%% TABLE CATHODES %%%%
-\begin{table}[tb]
-\centering
-\caption[]{The table summarises the properties of the photocathode coatings tested. Note that the gold photocathode needs a $\approx$\SI{5}{nm} Ti substrate for the gold to adhere. All the depositions have been performed at the London Centre for Nanotechnology.}
-    \smallskip
-    \begin{tabular} {@{}lrccccc@{}}
-    \toprule
-    \multicolumn{1}{c}{Technique} &\multicolumn{1}{c}{Material}
-    &\multicolumn{1}{c}{Work function}
-    &\multicolumn{1}{c}{Deposition}
-    &\multicolumn{1}{c}{Pressure[mbar]} &\multicolumn{1}{c}{Dep. rate [nm/s]} &\multicolumn{1}{c}{Thickness [nm]} \\
-    \cmidrule(r){1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}\cmidrule(l){4-7}
-    A506 ebeam          & Gold      & $\approx$5.1\,eV & Ti\nm & $9.74\times10^{-7}$ & 0.1   & 5.1\\
-                        &           &  & Au\nm &  $8.46\times10^{-7}$ & 0.69  & 99.8\\
-                        & Titanium  & $\approx$4.1--4.3\,eV & ti\nm & $6.10\times10^{-7}$ & 0.6   & 100.9\\
-    A306 Box Evaporator & Silver    & $\approx$4.26\,eV & Ag\nm & $1.17\times10^{-6}$ & 0.448 & 135\\
-                        & Aluminium & $\approx$4.1--4.3\,eV & Al\nm & $9.50 \times10^{-7}$ & 5     & 104\\
-    
-    \end{tabular}
-    \label{tab:photocathodes}
-\end{table}
-
+%%%% FIGURE SCHEME PURITY MONITOR %%%%
+\begin{figure}[t]
+	\begin{center}
+	\includegraphics[width=0.75\textwidth, trim={6cm 4.5cm 7cm 2cm}, clip=true]{figures/schematic_purity_monitor.pdf}			
+	\caption[]{Schematic drawing of the purity monitor. Measurements are only approximate. For simplicity, only one of the three cathodes is represented.}
+	\label{fig:schematic_PM}
+	\end{center}	
+\end{figure}
 
 %%%% TABLE CATHODES %%%%
 \begin{table}[tb]
@@ -175,22 +176,22 @@ The optical fibre which couples the cathode to the lamp is made of fused silica 
 \caption[]{The table summarises the properties of the photocathode coatings tested. Note that the gold photocathode needs a $\approx$\SI{5}{nm} Ti substrate for the gold to adhere. All the depositions have been performed at the London Centre for Nanotechnology.}
     
     \smallskip
-    \begin{tabular} {@{}lllccc@{}}
+    \resizebox{\textwidth}{!}{\begin{tabular} {@{}lllccc@{}}
     \toprule
     \multicolumn{1}{c}{Technique} &\multicolumn{1}{c}{Material and work function}
-    &\multicolumn{1}{c}{Pressure[mbar]} &\multicolumn{1}{c}{Dep. rate [nm/s]} &\multicolumn{1}{c}{Thickness [nm]} \\
-    \cmidrule(r){1-1}\cmidrule(l){2-3}\cmidrule(l){4-6}
-    A506 ebeam          & Gold \t ()     & Ti & $9.74\times10^{-7}$ & 0.1   & 5.1\\
+    &\multicolumn{1}{c}{Element} &\multicolumn{1}{c}{Pressure[mbar]} &\multicolumn{1}{c}{Dep. rate [nm/s]} &\multicolumn{1}{c}{Thickness [nm]} \\
+    \cmidrule(r){1-1}\cmidrule(l){2-2}\cmidrule(l){3-6}
+    A506 ebeam          & Gold ($\approx$5.3\,eV)     & Ti & $9.74\times10^{-7}$ & 0.1   & 5.1\\
                         &           & Au & $8.46\times10^{-7}$ & 0.69  & 99.8\\
                         & Titanium ($\approx$4.1--4.3\,eV) & Ti & $6.10\times10^{-7}$ & 0.6   & 100.9\\
-    A306 Box Evaporator & Silver ($$\approx$4.26\,eV)    & Ag & $1.17\times10^{-6}$ & 0.448 & 135\\
+    A306 Box Evaporator & Silver ($\approx$4.26\,eV)    & Ag & $1.17\times10^{-6}$ & 0.448 & 135\\
                         & Aluminium () & Al & $9.50 \times10^{-7}$ & 5     & 104\\
     
-    \end{tabular}
+    \end{tabular}}
     \label{tab:photocathodes}
 \end{table}
 
-The cathode plate features three blind holes with diameter \SI{25.1}{mm}, each one hosting a single photocathode (see Fig.~\ref{fig:cathode_plate}). 
+The cathode plate features three blind holes with diameter \SI{25.1}{mm}, each one hosting a single photocathode (see Figure~\ref{fig:cathode_plate}). 
 The photocathodes are silicon plates characterised by a \textlambda/4 surface flatness, \SI{3}{mm} thickness and \SI{25}{mm} diameter size. 
 The \SI{0.1}{mm} difference between the Si-plates and the holes is to take into account the different thermal expansion coefficients of stainless steel and silicon in liquid argon. 
 Each photocathode is lit by one fibre kept at an angle of \ang{\approx17} thanks to holders made in PTFE and secured on the edge of the cathode disk.  Each fibre exits the chamber through a DN16CF flange with one UV optical fibre feedthrough welded in. 
@@ -200,68 +201,74 @@ The photocathodes depositions were made at the London Centre for Nanotechnology.
 %%%% FIGURE CATHODE PLATE %%%%
 \begin{figure}[t]
 	\begin{center}
-	\includegraphics[width=0.65\textwidth, trim={35cm 20cm 40cm 20cm}, clip=true]{figures/cathode_plate.JPG}}			
+	\includegraphics[width=0.45\textwidth, trim={35cm 20cm 40cm 20cm}, clip=true]{figures/cathode_plate.JPG}			
 	\caption[]{The cathode plate features three blind holes with diameter \SI{25.1}{mm}. In this photo, the cathode was hosting the gold, silver, and aluminium photocathodes.}
 	\label{fig:cathode_plate}
 	\end{center}	
 \end{figure}
 
-%%%% FIGURE SCHEME PURITY MONITOR %%%%
-\begin{figure}[t]
-	\begin{center}
-	\includegraphics[width=0.95\textwidth, trim={6cm 4.5cm 7cm 2cm}, clip=true]{figures/schematic_purity_monitor.pdf}			
-	\caption[]{Schematic drawing of the purity monitor. Measurements are only approximate. For simplicity, only one of the three cathodes is represented.}
-	\label{fig:schematic_PM}
-	\end{center}	
-\end{figure}
-
 In between cathode and anode, two grids---called ``cathode- and anode- grids''---define the drift region. Both are electroformed nickel meshes (MN73 12.63 LPI nickel mesh by Precision Eforming) pinched between two stainless-steel rings. 
-In between the two grids, 15 coaxial stainless steel rings interconnected by \SI{50}{\megaohm} resistors act as a field-shaping system to grant electric field uniformity. The COMSOLE simulation in Fig.~\ref{fig:Comsol} shows that the field in the central region is uniform (with field lines perfecty vertical) across the \SI{16}{cm} drift region. Three PEEK rods hold together the electrodes and PTFE spacers separates them. 
+In between the two grids, 15 coaxial stainless steel rings interconnected by \SI{50}{\mega\ohm} resistors act as a field-shaping system to grant electric field uniformity. The COMSOL simulation in Figure~\ref{fig:Comsol} shows that the field in the central region is uniform (with field lines perfectly vertical) across the \SI{16}{cm} drift region. Three PEEK rods hold together the electrodes and PTFE spacers separates them. 
 
 In our design (contrary to the original ICARUS design), cathode, cathode-grid, anode-grid, and anode can be biased independently. 
 We call $E_1$, $E_2$, $E_3$, and $d_1$, $d_2$, $d_3$ the electric fields and distances between cathode and cathode-grid, in between the grids, and between anode-grid and anode, respectively.  
 The grids are directly connected to a 4-channel power supply from CAEN (model NDT1470). The cathode and the anode are connected to two ORTEC PC142 preamplifiers. The preamplifiers feature a high-voltage input (which is connected to the CAEN power supply) and an output that goes to the oscilloscope (LeCroy 7300A). 
 The purpose of the grids is to shield the cathode and anode from the electrons moving in the drift region (i.e. $d_2$), so that the time over which the preamplifiers need to integrate the current at the cathode and at the anode is shortened (the drift time can be of the order of ms, whereas the integration time of commercially available preamplifiers is in the 50--\SI{150}{\micro s} range). 
-Bunemann et al.~\cite{Bunemann1949} found that the inefficiencies of the cathode-grid and anode-grid at shielding ($\sigma_{1}$ and $\sigma_{2}$, respectively) are
+Bunemann et al.~\cite{Bunemann1949} found that the inefficiencies of the cathode-grid and anode-grid at shielding ($\sigma_{1}$ and $\sigma_{2}$, respectively) are: 
 \begin{equation}
-    \sigma_{1,2} = \frac{\diff E_{1,2}}{\diff E_2} \approx \frac{d}{2\pi d_{1,2}} \log {\left[\frac{s}{2\pi r}\right]}
+    \sigma_{1,2} = \frac{\diff E_{1,2}}{\diff E_2} \approx \frac{d}{2\pi d_{1,2}} \log {\left[\frac{s}{2\pi r}\right]} \,,
 \end{equation}
-where $E_{1,2}$ and $d_{1,2}$ are the electric field and the distance between the collecting plate and the grid respectively, $r$ is the wire radius, and $s$ is the distance in between wires. In an ideal case ($\sigma_{1,2} = 0$), once the electrons have passed the cathode-grid, none of their line of force (which causes $\diff E_2 \neq 0$) still reaches the cathode, i.e. no signal is induced on the cathode (no change in $E_1$ due to a change in $E_2$). Similarly, the anode-grid shields the anode from any lines of force from the drifting electrons---until the electrons cross the grid. At this point, the number of lines of force on the anode from the electrons starts to increase till the electrons reach the anode, when all their lines of force end on the anode. In reality, as $\sigma \neq 0$ one can typically see a little bit of early signal on the anode (i.e. a few field lines penetrate the anode grid as the electrons approach it). The same effect happens on the cathode, but it is harder to see given $d_1>d_2$ by construction (see Fig.~\ref{fig:schematic_PM} for the geometrical characteristics of the purity monitor). It should be noted that the grids efficiency solely depends on the geometry of the purity monitor ($D$) and the geometrical properties of the mesh ($r$ and $s$). In our case $\sigma_1 =2\%$, while $\sigma_2 =3.5\%$. Bunemann et al.~\cite{Bunemann1949} also showed that while acting as a shield, the collecting plate and the grid may be biased in such a way that the grid is ``electrically'' transparent to the drifting electrons, i.e. the electric lines of force by-pass the grid (and so do the electrons, as they diffuse along the lines of force). 
+\noindent where $E_{1,2}$ and $d_{1,2}$ are the electric field and the distance between the collecting plate and the grid respectively, $r$ is the wire radius, and $s$ is the distance in between wires. In an ideal case ($\sigma_{1,2} = 0$), once the electrons have passed the cathode-grid, none of their line of force (which causes $\diff E_2 \neq 0$) still reaches the cathode, i.e. no signal is induced on the cathode (no change in $E_1$ due to a change in $E_2$). Similarly, the anode-grid shields the anode from any lines of force from the drifting electrons---until the electrons cross the grid. At this point, the number of lines of force on the anode from the electrons starts to increase till the electrons reach the anode, when all their lines of force end on the anode. In reality, as $\sigma \neq 0$ one can typically see a little bit of early signal on the anode (i.e. a few field lines penetrate the anode grid as the electrons approach it). The same effect happens on the cathode, but it is harder to see given $d_1>d_2$ by construction (see Figure~\ref{fig:schematic_PM} for the geometrical characteristics of the purity monitor). It should be noted that the grids efficiency solely depends on the geometry of the purity monitor ($D$) and the geometrical properties of the mesh ($r$ and $s$). In our case $\sigma_1 =2\%$, while $\sigma_2 =3.5\%$. Bunemann et al.~\cite{Bunemann1949} also showed that while acting as a shield, the collecting plate and the grid may be biased in such a way that the grid is ``electrically'' transparent to the drifting electrons, i.e. the electric lines of force by-pass the grid (and so do the electrons, as they diffuse along the lines of force). 
 The condition for which all the field lines by-pass the cathode- or anode-grid is
 \begin{equation}
-    \frac{E_\mathrm{i}}{E_{\mathrm{i}-1}} & = \frac{1+\rho}{1-\rho} \approx 2,
+    \frac{E_\mathrm{i}}{E_{\mathrm{i}-1}} = \frac{1+\rho}{1-\rho},
     \label{eq:ratio_fields}
 \end{equation}
-where $\mathrm{i} = 2,3$ and $\rho & = \frac{2\pi r}{s}$. Given for our particular grid choice the ration in eqn~\ref{eq:ratio_fields} is $\approx 2$, we always ran the purity monitor with $E_3\approx 2 E_2 \approx 4 E_1$.
+where $\mathrm{i} = 2,3$ and $\rho = \frac{2\pi r}{s}$. 
+In our case the section of the grid wires is not circular, instead, the width is \SI{106}{\micro\metre} and the height \SI{5}{\micro\metre}. Using $r=\SI{106}{\micro\metre}$ leads to an upper limit of the ratio in Equation~\ref{eq:ratio_fields}, which is $\approx 2$. As such, we always ran the purity monitor with $E_3\approx 2 E_2 \approx 4 E_1$. The COMSOL simulation also confirmed that this field configuration guarantees an electrical transparency of $100\%$. 
 
+%%%% FIGURE COMSOL SIM %%%%
 \begin{figure}
 	\begin{center}
-	\includegraphics[width=1\textwidth, trim={0 0cm 0cm 0cm}, clip=true]{figures/ComsolForPaper.png}			
-	\caption{COMSOL simulation of the purity monitor at an electric field configuration of $\protect \{E_1, E_2, E_3\} = \{70, 140, 280\}\;V/cm$ }
+	\includegraphics[width=0.8\textwidth, trim={0 0cm 0cm 0cm}, clip=true]{figures/COMSOLsim.png}	
+	\caption{2D axysymmetric model of the purity monitor. In black, the streamline of the electric field. Coloured in gradient from blue to red, the electric potential from \SI{-890}{\volt} at the cathode to \SI{1000}{\volt} at the anode. The field configuration is $\protect (E_1, E_2, E_3) = (50, 100, 200)$\;V/cm.}
 	\label{fig:Comsol}
 	\end{center}
 \end{figure}
 
-\subsection{The gas system and the chamber}
-\begin{sidewaysfigure}
-	\begin{center}
-	\includegraphics[width=1\textwidth, trim={0 1cm 6cm 2cm}, clip=true]{figures/PnID.pdf}			
-	\caption{P\&ID of the LARA test bench gas system to liquify filtered and purified argon gas.}
-	\label{fig:PnID}
-	\end{center}
-\end{sidewaysfigure}
 
-\begin{figure}[tb]
+
+
+\subsection{The gas system and the chamber}
+%\begin{figure} [ht!]
+%	\begin{center}
+%	\includegraphics[width=1\textwidth, trim={0 1cm 6cm 2cm}, clip=true]{figures/PnID.pdf}			
+%	\caption{P\&ID of the LARA test bench gas system to liquefy filtered and purified argon gas.}
+%	\label{fig:PnID}
+%	\end{center}
+%\end{figure}
+All tests, in vacuum and liquid argon, have been performed in a dedicated setup at UCL called LARA (Liquid ARgon Apparatus). 
+Figure~\ref{fig:LARA_gas_system} show the real gas system and chamber, respectively. Pressurised gaseous argon (GAr) from a commercial N6.0 grade bottle enters the system and is filtered through a SAES MicroTorr getter Model MC50-902F. Table~\ref{tab:airproducts} shows the level of impurities of the GAr according to the supplier (AirProducts). The getter further reduces H\textsubscript{2}O, O\textsubscript{2}, CO, CO\textsubscript{2}, and H\textsubscript{2} up to $<$100\,$ppt$ while acids, bases, and impurities coming from organics and refractory compounds up to $<$10\,ppt. In all our tests the oxygen, moisture, and carbon filters shown in the P\&ID have been by-passed as they restrict the gas flow to 2.5\,SLPM. Instead, only the getter has been used to filter the GAr, resulting in a maximum flow of 10\,SLPM and a liquefaction rate of \SI{23.6}{mm/h} (leading to a total of \SI{9}{hours} for the liquid to reach the top of the anode).
+
+After being filtered the gas argon enters the chamber through a long straight feed-through. Because the chamber (of inner diameter \SI{200}{\mm} and height \SI{300}{\mm}) is immersed in an external low-grade LAr bath, the gas inside turns into liquid. 
+
+%%%% FIGURE LARA GAS SYSTEM %%%%
+\begin{figure}[tbh]
 	\begin{center}
-	\includegraphics[width=0.9\textwidth]{figures/photo_LARA.jpg}			
-	\caption{Photo of the LARA gas system and test chamber. Major components are labelled in the figure.}
-	\label{fig:photo_LARA}
+	\includegraphics[width=0.8\textwidth, trim={0cm 0cm cm 3cm}, clip=true]{figures/LARA_labels.pdf}		
+	\caption{Photo of the LARA gas system. The vacuum cart, not visible in the picture, is just below the RGA on the bottom left in white. The inlet and outlet gas pipes (top right) are disconnected from the chamber in the photo. The main coponents have been labelled.}
+	\label{fig:LARA_gas_system}
 	\end{center}
 \end{figure}
 
-All tests, in vacuum and liquid argon, have been performed in a dedicated setup at UCL called LARA (Liquid ARgon Apparatus).
-Figures~\ref{fig:PnID} shows the the P\&ID (``piping and instrumentation diagram'') of the system, whereas Fig.~\ref{fig:photo_LARA} is a photo of the real setup. Pressurised gaseous argon (GAr) from a commercial N6.0 grade bottle enters the system and is filtered through a SAES MicroTorr getter Model MC50-902F. Table~\ref{tab:airproducts} shows the level of impurities of the GAr according to the supplier (AirProducts). The getter further reduces H\textsubscript{2}O, O\textsubscript{2}, CO, CO\textsubscript{2}, and H\textsubscript{2} up to $<$100\,$ppt$ while acids, bases, and impurities coming from organics and refractory compounds up to $<$10\,ppt. In all our tests the oxygen, moisture, and carbon filters shown in the P\&ID have been by-passed as they restrict the gas flow to 2.5\,SLPM. Instead, only the getter has been used to filter the GAr, resulting in a maximum flow of 10\,SLPM and a liquefaction rate of \SI{23.6}{mm/h} (leading to a total of \SI{9}{hours} for the liquid to reach the top of the anode).
-After being filtered the gas argon enters the chamber through a long straight feed-through. Because the chamber (of inner diameter 200\mm\ and height 300\mm) is immersed in an external low-grade LAr bath, the gas inside turns into liquid. 
+%%%% FIGURE LARA CHAMBER %%%%
+%\begin{figure}[tbh]
+%	\begin{center}
+%	\includegraphics[width=0.8\textwidth, trim={4cm 3.5cm 4cm 3cm}, clip=true]{figures/LARA_chamber.pdf}		
+%	\caption{The stainless steel chamber containing the purity monitor is inside the plastic bucket (bottom right). The bucket is in a wooden box (blue) and is passively insulated by Styrofoam (also painted in blue). A few pink pieces of Styrofoam are also placed on top of the chamber during operation. The photo shows on the top right the extraction fan to vent out argon vapours during the liquefaction and the long metal pipe which connects the chamber to the gas system. The xenon flash lamp is inside the metal box, and the two preamplifiers to readout the cathode and anode signals of the purity monitor can be seen on the bottom right corner of the picture.}
+%	\label{fig:LARA_chamber}
+%	\end{center}
+%\end{figure}
 
 %%%% TABLE AIR PRODUCTS %%%%
  \begin{table}[tb]
@@ -272,7 +279,7 @@ After being filtered the gas argon enters the chamber through a long straight fe
     \begin{tabular} { ll@{}}
     \toprule
     \multicolumn{1}{l}{Gas} &\multicolumn{1}{l}{Concentration} \\
-    \cmidrule(c){1-2}
+    \midrule
     O$_2$             & $<10$\,ppb    \\
     H$_2$O            & $<20$\,ppb    \\
     THC$^*$           & $<100$\,ppb   \\
@@ -280,107 +287,123 @@ After being filtered the gas argon enters the chamber through a long straight fe
     N$_2$             & $<0.3$\,ppm   \\
     \multicolumn{1}{l}{\tiny $^*\rm THC = as\; CH_4$} 
     \end{tabular}
-    
-}\\
-    \label{tab:tab:airproducts}
+    \label{tab:airproducts}
 \end{table}
-As LARA is not equipped with a recirculation system, it is essential to leak check all connections prior to filling. This is done by using a residual gas analyser, RGA (model Pfeiffer Vacuum Prisma RGA), visible in white above the red cart in the photo. Once the pressure is below $2\times{10^{-4}}$\millibar, a sniffer probe---attached to a helium bottle through a plastic pipe---is scanned over each connection. If any helium sneaks into the vacuum system through a leak, the RGA detects it. All connections---except the ones which are not evacuated and heareby cannot be tested (e.g. the back pressure regulator valve)---showed no leak down to an ion current of $10^{-15}$\,A.  
+As LARA is not equipped with a recirculation system, it is essential to leak check all connections prior to filling. This is done by using a residual gas analyser, RGA (model Pfeiffer Vacuum Prisma RGA), visible in white on the left in Figure~\ref{fig:LARA_gas_system}. Once the pressure is below $2\times10^{-4}$\,mbar, a sniffer probe---attached to a helium bottle through a plastic pipe---is scanned over each connection. If any helium sneaks into the vacuum system through a leak, the RGA detects it. All connections---except the ones which are not evacuated and hereby cannot be tested (e.g. the back pressure regulator valve)---showed no leak down to an ion current of $10^{-15}$\,A.  
 
 %%%% LEAK RATE PLOT %%%%
 \begin{figure}[tb]
 	\begin{center}
-	\includegraphics[width=0.9\textwidth]{figures/leak_rate.pdf}}			
-	\caption{Rate-of-rise curve to measure the leak rate of our system. A linear fit is applied individually to four ranges (identified by eye) and the weighted mean multiplied by the volume of the setup---chanmber and pipes---is taken as representative of the leak rate of the system. The errors on the fit, pressure measurement and time are all negligible compared to the error on the volume, which alone accounts for 13\%.}
-	\label{fig:photo_LARA}
+	\includegraphics[width=0.8\textwidth]{figures/leak_rate.pdf}
+	\caption{Rate-of-rise curve to measure the leak rate of our system. A linear fit is applied individually to four ranges (identified by eye) and the weighted mean multiplied by the volume of the setup---chamber and pipes---is taken as representative of the leak rate of the system. The errors on the fit, pressure measurement and time are all negligible compared to the error on the volume, which alone accounts for 13\%.}
+	\label{fig:leak_rate}
 	\end{center}
 \end{figure}
 
-A bellow connects the system to the pump cart (model HiCube 80 Eco Pfeiffer Turbo Pump), which can evacuate the chamber down to ${8.9\times10^{-6}}$\,mbar with a leak rate of ${1.6\pm0.1\times10^{-5}}$\millibarL/s when the purity monitor is inside. The error given includes the uncertainty in the calculation of the system volume, fluctuations in the base pressure, the error on the time stamp (negligible) and the error on the fit of the pressure build-up curve.
+A bellow connects the system to the pump cart (model HiCube 80 Eco Pfeiffer Turbo Pump), which can evacuate the chamber down to $8.9\times10^{-6}$\,mbar with a leak rate of $1.6\pm0.1\times10^{-5}$\,mbar\,l/s when the purity monitor is inside (see Figure~\ref{fig:leak_rate}). The error given includes the uncertainty in the calculation of the system volume, fluctuations in the base pressure, the error on the time stamp (negligible) and the error on the fit of the pressure build-up curve.
 
-The liquefaction starts by closing valve 14 (so that the chamber stops being evacuated) and immediately flowing the gas argon into the chamber through the getter. At this point the back pressure regulator (BPR) valve is closed, and so is the pressure release valve---which is only opened when the tests are over and we want the liquid argon to evaporate. Once the pressure inside the chamber (read by the pressure gauge PG3 in the diagram) is around \SI{0.6}{bar} above atmosphere, the BPR is opened and the system is flushed. While purging, the outer bath is filled with low-grade liquid argon. A few minutes later ($\approx$5) the pressure starts dropping: we then know that the gas has started to liquefy and the BPR can then be closed. At that point we monitor that the pressure stays well below \SI{1}{bar} above atmosphere (i.e. when the burst disk would pop) by regulating the flow metre accordingly. Once the liquefaction has stabilised, the pressure is at \SI{0.1}{bar} above atmospheric pressure (provided the cooling power from the outer low-grade argon bath is enough). Originally, the BPR was meant to always stay open when the chamber was pressurised. However, tests have shown that opening the BPR causes some air back flow (despite the check valve), hereby compromising the argon purity.
+The liquefaction starts by closing the valve that connects the chamber to the vacuum side of the system (so that the chamber stops being evacuated) and by immediately flowing the gas argon into the chamber through the getter. At this point the back pressure regulator (BPR) valve is closed, and so is the pressure release valve---which is only opened when the tests are over and we want the liquid argon to evaporate. Once the pressure inside the chamber (read by the pressure gauge PG3 in the diagram) is around \SI{0.6}{bar} above atmosphere, the BPR is opened and the system is flushed. While purging, the outer bath is filled with low-grade liquid argon. A few minutes later ($\approx$5) the pressure starts dropping: we then know that the gas has started to liquefy and the BPR can then be closed. At that point we monitor that the pressure stays well below \SI{1}{bar} above atmosphere (i.e. when the burst disk would pop) by regulating the flow metre accordingly. Once the liquefaction has stabilised, the pressure is at \SI{0.1}{bar} above atmospheric pressure (provided the cooling power from the outer low-grade argon bath is enough). Originally, the BPR was meant to always stay open when the chamber was pressurised. However, tests have shown that opening the BPR causes some air back flow (despite the check valve), hereby compromising the argon purity.
 
 %**********************************************
 \section{Lifetime of electrons drifting in liquid argon}
+\label{sec:calculation_lifetime}
 %**********************************************
+In this section we explore how the lifetime of drifting electrons in liquid argon is the related to the concentration of electronegative impurities, and how lifetime is calculated from the cathode and anode traces.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Attachment coefficient}
-As already mentioned, at each xenon-lamp flash a cloud of electrons is emitted from the cathode and drifted towards the anode. Of the $N_0$ electrons extracted at the cathode, only $N(t_{\rm drift})$ will reach the anode after an average drift time $t_{drift}$, which depends on the average drift velocity $v_{\rm drift}$ at the specific electric field $E$ applied (i.e. $t_{drift} = t_{drfift}(E)$). The electron loss can be parametrised as
+\label{subsec:attachment}
+At each xenon-lamp flash a cloud of electrons is emitted from the cathode and drifted towards the anode. Of the $N_0$ electrons extracted at the cathode, only $N(t_{\rm drift})$ will reach the anode after an average drift time $t_{drift}$, which depends on the average drift velocity $v_{\rm drift}$ at the specific electric field $E$ applied (i.e. $t_{\rm drift} = t_{\rm drift}(E)$). The electron loss can be parametrised as
 \begin{equation}
-    N(t_{\rm drift}) = N_0 \eu^{-t_{\rm drift}/\tau}
+    N(t_{\rm drift}) = N_0 \eu^{-t_{\rm drift}/\tau} \,,
     \label{eq:electron_loss}
 \end{equation}
-where $\tau$ is the lifetime of the drifting electrons and $t_{\rm drift} = d/v_{\rm drift}$, with $d$ being the drift distance. Note that equation~\ref{eq:electron_loss} is only approximate, as in reality the presence of a cathode- and anode-grid complicates things slightly.
-The lifetime is given by
+\noindent where $\tau$ is the lifetime of the drifting electrons and $t_{\rm drift} = d/v_{\rm drift}$, with $d$ being the drift distance. Note that equation~\ref{eq:electron_loss} is only approximate, as in reality the presence of a cathode- and anode-grid complicates things slightly.
+
+The lifetime is given by: 
 \begin{equation}
-    \tau = \frac{1}{\sum_{\rm i} k_{\rm i} n_{\rm i}}
+    \tau = \frac{1}{\sum_{\rm i} k_{\rm i} n_{\rm i}} \, ,
     \label{eq:attachement}
 \end{equation}
-where the summation runs over the type of electronegative impurities; $k_i$ is the attachment coefficient specific to the impurity $i$ in units of volume per time (usually \si{\liter /(mol.s)} or \si{cm^3/s}); and $n_i$ is the concentration of the specific impurity $i$ in units of inverse volume (usually \si{mol/\liter} or \si{1/cm^3}).  
+\noindent where the summation runs over the type of electronegative impurities; $k_i$ is the attachment coefficient specific to the impurity $i$ in units of volume per time (usually \si{\liter /(mol.s)} or \si{cm^3/s}); and $n_i$ is the concentration of the specific impurity $i$ in units of inverse volume (usually \si{mol/\liter} or \si{1/cm^3}).  
 The electron attachment to an impurity $S$ is described by the following 3-body process: is~\cite{EmissionDetectorsBook}:
 \begin{equation}
     \begin{aligned}
     \eu^- + S      & \rightarrow {S^-}^* \\
-    {S^-}^* + X & \rightarrow S^- + X
+    {S^-}^* + X & \rightarrow S^- + X \,,
     \end{aligned}
     \label{eq:Block-Broadbury}
 \end{equation}
-where $X$ is the atom (or molecule) representing most of the medium population (argon in this case) and plays the role of the third body, stabilising the transient negative ion by dissipating the binding energy of the electron. 
+\noindent where $X$ is the atom (or molecule) representing most of the medium population (argon in this case) and plays the role of the third body, stabilising the transient negative ion by dissipating the binding energy of the electron. 
+
 The rate of a 3-body attachment process is described by the following equation:
 \begin{equation}
-    \frac{\diff n_{\eu^-}}{\diff t} = - k^{}_{3} \; n^{}_{\!S} \; n^{}_{X} \; n^{}_{\eu^-}
+    \frac{\diff n_{\eu^-}}{\diff t} = - k^{}_{3} \; n^{}_{\!S} \; n^{}_{X} \; n^{}_{\eu^-} \,,
     \label{eq:att_rate}
 \end{equation}
-where $n_{\eu^-}$, $n^{}_{\!S^-}$, and $n^{}_{X}$ are the densities of impurities of type $S$, atoms/molecules of the medium, and free electrons respectively. $k^{}_3$ is the 3-body attachment rate of electrons specific to the reaction (i.e. to the type of impurity $S$ and to the atom of the medium $X$).
-If $k^{}_3$ does not depend on the density of $S$ nor of that of the medium, then eqn~\ref{eq:Block-Broadbury} can be simplified to a single-stage reaction~\cite{EmissionDetectorsBook}:
+\noindent where $n_{\eu^-}$, $n^{}_{\!S^-}$, and $n^{}_{X}$ are the densities of impurities of type $S$, atoms/molecules of the medium, and free electrons respectively. $k^{}_3$ is the 3-body attachment rate of electrons specific to the reaction (i.e. to the type of impurity $S$ and to the atom of the medium $X$).
+If $k^{}_3$ does not depend on the density of $S$ nor of that of the medium, then Equation~\ref{eq:Block-Broadbury} can be simplified to a single-stage reaction~\cite{EmissionDetectorsBook}:
 \begin{equation}
-    e- + S + X \rightarrow S^- + X.
-    \label{eq:Block-Broadbury}
+    e- + S + X \rightarrow S^- + X \,.
 \end{equation}
-Solving eqn~\ref{eq:att_rate} leads to
+Solving Equation~\ref{eq:att_rate} leads to
 \begin{equation}
     \begin{aligned}
     n^{}_{\eu^-} (t) & = n^{}_{0} \exp (-k^{}_3 n^{}_{\!S} n^{}_{X} t) \\
                    & = n^{}_{0} \exp (-t/\tau)                       \\
-    \implies \tau  & = \frac{1}{k^{}_3 \: n^{}_{\!S} \: n^{}_{X}},  \\
+    \implies \tau  & = \frac{1}{k^{}_3 \: n^{}_{\!S} \: n^{}_{X}} \, ,  \\
     \end{aligned}
 \end{equation}
-where we may absorb $n^{}_{X}$ into the attachment coefficient by defining
+where we may absorb $n^{}_{X}$ into the attachment coefficient $k$ by defining
 \begin{equation}
-    k \equiv k^{}_{3} \; n^{}_{X}},
+    k \equiv k^{}_{3} \,,
 \end{equation}
-so that $k$ has now the dimensions of a volume per time unit. Bakale et al.~\cite{Bakale} reported on the measurement of $k$ for O$_2$ in liquid argon as a function of the electric field and found a slight dependence above \SI{100}{V/cm}.
+so that $k$ has now the dimensions of a volume per time unit. 
+
+Bakale et al.~\cite{Bakale} reported on the measurement of $k$ for O$_2$ in liquid argon as a function of the electric field and found a slight dependence above \SI{100}{V/cm}.
 The reason $k$ does not depend much on the electric field (resulting in the lifetime also not being heavily dependent on the field) is because the electron attachment to impurities depends mostly on the electron speed $v =|\Vec{v}|$, which is largely independent of the electric field~\cite{Buckley1989}:
 \begin{equation}
-    k = \int v\,\sigma(v)\,f(v)\diff v,
+    k = \int v\,\sigma(v)\,f(v)\diff v \,,
 \end{equation}
 where $f(v)$ is the velocity distribution of the electrons---the  Maxwell-Boltzmann distribution, $\sigma (v)$ is the cross-section as a function of the speed for the interaction of the electrons with the impurity $S$.
 Assuming oxygen is the main cause of electrons loss in liquid argon, we may write
 \begin{equation}
-    \tau = \frac{1}{k_{O_2} n_{O_2}}.
+    \tau = \frac{1}{k_{O_2} n_{O_2}} \,.
 \end{equation}
 This leads to the following equation for the oxygen equivalent impurity concentration in ppb w/V as a function of the lifetime in $\upmu \rm s$:
 \begin{equation}
 n_{O_2} [\rm ppb\,w/V ] = \frac{\rm ppb\,w/V\, \rm \upmu s}{k\left[\frac{\rm l}{\rm mol\, s}\right] 
-31.25 \times 10^{-15} \left[\frac{mol s}{l}\right] \tau[\upmu s]}.   
+31.25 \times 10^{-15} \left[\frac{mol s}{l}\right] \tau[\upmu s]} \,.   
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Calculation of the lifetime of the drifting electrons} \label{sec:calculation_lifetime}
-To calculate the lifetime of the drifting electrons we write $\tau$ as a function of ratio between the charge measured at the cathode and at the anode, and other measurable quantities, namely $t_1$, $t_2$, and $t_3$, i.e. the time to go from cathode to cathode-grid, from cathode-grid to anode-grid, and from anode-grid to anode. 
+\subsection{Calculation of the lifetime of the drifting electrons} \label{subsec:calculation_lifetime}
+To calculate the lifetime of the drifting electrons we write $\tau_{\rm drift}$ as a function of the ratio between the charge measured at the cathode ($Q_{\rm C}$) and at the anode ($Q_{\rm A}$), and the drift times from cathode to cathode-grid ($t_1$), from cathode-grid to anode-grid ($t_2$), and from anode-grid to anode ($t_3$). 
+Figure~\ref{fig:sampleLifetimeFunctions} shows a diagram of the cathode and anode responses in liquid argon with all these quantities labeled.
 The cathode and anode currents are calculated as follows:
 \begin{align}
     I_{\rm C} & = \frac{Q_0}{d_1}v_{1}\exp\left({-t_{1}/\tau}\right) \\
-    I_{\rm A} & = \frac{Q_0}{d_3}v_{3}\exp\left({-t_{3}/\tau}\right), 
+    I_{\rm A} & = \frac{Q_0}{d_3}v_{3}\exp\left({-t_{3}/\tau}\right) \,, 
 \end{align}
-where $Q_0$ is the charge born at the cathode. Not to make the notation heavy, we have dropped the subscript $drift$, so that from now on
-\begin{equation}
+where $Q_0$ is the charge born at the cathode. To make the notation less heavy, we have dropped the subscript $\rm drift$, so that from now on :
+\begin{equation} 
     \begin{aligned}
-    v_{drift,i} & \equiv v_i \\ 
-    t_{drift,i} & \equiv t_i    \quad \quad \quad i \in [1,3]
+    v_{\rm{drift},\textit{i}} & \equiv v_i \\ 
+    t_{\rm{drift},\textit{i}} & \equiv t_i    \quad \quad \quad i \in [1,3] \,.
     \end{aligned}
 \end{equation}
-Integrating $I_C$ and $I_A$ over the appropriate time ranges gives the charge measured by the preamplifiers at the cathode and at the anode:
+
+%%%% LIFETIME CALCULATION SCHEMATICS%%%%
+\begin{figure}[tb]
+	\begin{center}
+	\includegraphics[width=0.65\textwidth]{figures/LifetimeMeasurementSchematics.png}
+	\caption{Example traces left by the cathode and anode signals. 
+	    The times between cathode to cathode-grid ($t_1$), cathode-grid to anode-grid ($t_2$), and anode-grid to anode ($t_3$) are also highlighted, as well as the cathode charge ($Q_{\rm C}$) and the anode charge ($Q_{\rm A}$).}
+	\label{fig:sampleLifetimeFunctions}
+	\end{center}
+\end{figure}
+
+Integrating $I_{\rm C}$ and $I_{\rm A}$ over the appropriate time ranges gives the charge measured by the preamplifiers at the cathode and at the anode:
 \begin{align}
     Q_{\rm C} & = \int_0^{t_1} I_C(t) \diff t = \frac{Q_0 \tau}{t_1} \left (1-\eu^{-\frac{t_1}{\tau}}\right) \\
     Q_{\rm A} & = \int_{t_1+t_2}^{t_1+t_2+t_3} I_A(t) \diff t = 
@@ -393,70 +416,103 @@ By taking the ratio of the two charges, we obtain
 \begin{equation}
     \frac{Q_{\rm A}}{Q_{\rm C}} = \frac{t_1}{t_3} \frac{\eu^{\frac{t_3}{\tau}}-1}{1-\eu^{-\frac{t_1}{\tau}}}
     \frac{\eu^{-\frac{t_3}{2\tau}}}{\eu^{\frac{t_1}{2\tau}}}
-    \exp{\left(-\frac{\frac{t_1+t_2}{2}+t_3}{\tau}\right)},
+    \exp{\left(-\frac{\frac{t_1+t_3}{2}+t_2}{\tau}\right)} \,,
 \end{equation}
 which can be rewritten as:
 \begin{equation}
     \frac{Q_{\rm A}}{Q_{\rm C}} = \frac{t_1}{t_3} 
     \frac{\sinh(t_3/2\tau)}{\sinh(t_1/2\tau)}
-    \exp{\left(-\frac{\frac{t_1+t_2}{2}+t_3}{\tau}\right)}.
+    \exp{\left(-\frac{\frac{t_1+t_3}{2}+t_2}{\tau}\right)} \,.
     \label{eq:sinh}
 \end{equation}
 Given $t_{1,3} \ll t_2$, the above equation may be approximated to:
 \begin{equation}
     \frac{Q_{\rm A}}{Q_{\rm C}} \approx \frac{t_1}{t_3} 
     \frac{t_3/2\tau}{t_1/2\tau}
-    \exp{\left(-\frac{\frac{t_1+t_2}{2}+t_3}{\tau}\right)}
+    \exp{\left(-\frac{\frac{t_1+t_3}{2}+t_2}{\tau}\right)} \,,
 \end{equation}
  which solved for $\tau$ gives
 \begin{equation}
-    \tau \approx \frac{1}{\ln{Q_{\rm A}/Q_{\rm C}}}\left ( t_2 + \frac{t_1+t_3}{2}\right).
+    \tau \approx \frac{1}{\ln{Q_{\rm A}/Q_{\rm C}}}\left ( t_2 + \frac{t_1+t_3}{2}\right)\,.
     \label{eq:tau_approx}
 \end{equation}
-Equation~\ref{eq:tau_approx} does not take into account the ``correction factor'' explained in the appendix. 
+Equation~\ref{eq:tau_approx} does not take into account the ``correction factor'' explained in the Appendix~\ref{app:preamps_correction}.
 
 %**********************************************
 \section{Tests in vacuum}
+\label{sec:tests_vacuum}
 %**********************************************
-As the purity monitor is inevitably exposed to air, only materials which do not degrade in atmosphere can be selected for the photocathode. As such, despite their (relatively) high photon-to-electron conversion efficiency (typically $\approx$25--30\%) and low surface barrier, semiconductor compounds commonly used in photomultiplier tubes cannot be used. In contrast to semiconductors, metals are much more resistant to air, but, on the other hand, have much lower quantum efficiency ($\approx$$10^{-5}$--$10^{-4}$\% and higher surface barriers (typical work functions for metals are \SI{<6}{eV}). In this work we have tested aluminium, titanium, silver, and gold. Aluminium has the lowest work function $\approx$4.1--4.3\,eV~\cite{}), but it is also highly affected by oxidation. The titanium has a slightly higher work function $\approx$4.1--4.3\,eV~\cite{}) and similar oxidation behaviour. The work function of silver exceeds by only a few percent the work function of titanium, but oxidises a lot less. Finally, gold does not react to air, but has a relatively high work function when compared to the other metals.
-Being the usual choice for purity monitors in liquid argon (ICARUS, 35 ton...), gold was considered the ``standard'' reference against which all the other materials were compared. 
-The first tests have all been conducted in vacuum. As expected Al and Ti showed showed a very small signal compared to the gold sample. Silver instead, albeit smaller, was of the same order of magnitude of gold.  Figure~\ref{fig:materials} shows four waveforms in vacuum for the materials tested. 
-Hence, we decided to carry out more measurements in liquid argon on the silver only.
-
 \begin{figure}[tb]
-	\begin{center}
-	\includegraphics[width=0.45\textwidth]{figures/TitaniumVSGold_40Vcm.pdf}			   \, \includegraphics[width=0.45\textwidth]{figures/AluminumVSGold_50Vcm.pdf}	\\
-	\includegraphics[width=0.45\textwidth]{figures/FirstSilverVSGold_25Vcm.pdf} \,	
-	\caption{Titanium vs Gold, test in vacuum from CERN 
-	CERN/2018/October12/Vacuum/, 
-	Aluminum vs Gold, test in vacuum from 2018June13VacuumDifferentCathodes,
-Fresh Silver vs Fresh Gold, test in vacuum  
-	2018September06Vacumm/NewLampPosition/
-	}
-	\label{fig:VacuumPhotocathodes}
-	\end{center}
+    \begin{subfigure}[h]{0.45\textwidth}\centering\captionsetup{singlelinecheck = false, format= hang, justification=raggedright, font=footnotesize, labelsep=space}
+            \includegraphics[scale=0.35]{figures/TitaniumVSGold_40Vcm.pdf}
+        \caption{Titanium and gold.}
+        \label{fig:titanium}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[h]{0.45\textwidth}\centering\centering\captionsetup{singlelinecheck = false, format= hang, justification=raggedright, font=footnotesize, labelsep=space}
+            \includegraphics[scale=0.35]{figures/AluminumVSGold_50Vcm.pdf}
+        \caption{Aluminium and gold.}
+        \label{fig:aluminium}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[h]{0.45\textwidth}\centering\centering\captionsetup{singlelinecheck = false, format= hang, justification=raggedright, font=footnotesize, labelsep=space}
+            \includegraphics[scale=0.35]{figures/FirstSilverVSGold_25Vcm.pdf}
+        \caption{Silver and gold, ``fresh cathodes.''}
+        \label{fig:freshSilver}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[h]{0.45\textwidth}\centering\centering\captionsetup{singlelinecheck = false, format= hang, justification=raggedright, font=footnotesize, labelsep=space}
+            \includegraphics[scale=0.35]{figures/MaxSilverVSGold_25Vcm.pdf}
+        \caption{Silver and gold.}
+        \label{fig:maxSilver}
+    \end{subfigure}
+    \caption{Overlay of cathode signals for different photocathode materials from tests in vacuum. All materials are compared to gold as a benchmark.}
 \end{figure}
+As the purity monitor is inevitably exposed to air, only materials which do not degrade in atmosphere can be selected for the photocathode. As such, despite their (relatively) high photon-to-electron conversion efficiency (typically $\approx$25--30\%) and low surface barrier, semiconductor compounds commonly used in photomultiplier tubes cannot be used. In contrast to semiconductors, some metals are much more resistant to air\footnote{While alkali metals have a reasonably low work function, 2--3\,keV, they are very reactive with oxygen.}, but, on the other hand, have much lower quantum efficiency ($\approx$10$^{-5}$--$10^{-4}$\% and higher surface barriers (typical work functions for metals are \SI{<6}{eV}~\cite{holzl1979work}). In this work we have tested aluminium, titanium, silver, and gold. Aluminium has the lowest work function $\approx$4.1--4.3\,eV~\cite{holzl1979work, green1969solid,Michaelson}, but it is also highly affected by oxidation. Titanium has a slightly higher work function $\approx$4.1--4.3\,eV~\cite{holzl1979work, green1969solid,Michaelson}) and similar oxidation behaviour. The work function of silver exceeds by only a few percent the work function of titanium~~\cite{silver}, but oxidises a lot less. Finally, gold practically does not react to air, but has a relatively high work function when compared to the other metals.
+Being the usual choice for purity monitors in liquid argon (ICARUS, 35 ton, ProtoDUNE SP), gold was considered the ``standard'' reference against which all the other materials were compared. 
+The first tests have all been conducted in vacuum. As expected aluminium and titanium showed  a very small signal compared to the gold sample. Silver instead, albeit smaller, was of the same order of magnitude of gold. Figure~\ref{fig:titanium} shows the cathode amplitude for gold and titanium at \SI{40}{V/cm}. Albeit the higher field, \SI{50}{V/cm}, aluminium shows an even lower amplitude in Figure~\ref{fig:aluminium}. Figure~\ref{fig:freshSilver} compares gold and silver when tested for the first time (we refer to these cathodes as ``fresh''): the silver amplitude is smaller than the one of the gold film, but at least of the same order of magnitude. We monitored the cathodes over time and saw that both growing over time. About~16\,hours later the silver was more than four times as big as the gold. Hence, we decided to carry out more measurements in liquid argon on the silver cathode only.
 
-%One possible explanation may be that exposure to UV light promotes water vapour outgassing from the photocathode. We tested this hypothesis thtough the chemical analysis of the photocathodes before and after UV light exposure. This was done through energy dispersive X-ray analysis (EDAX) at the London Centre for Nanotechnology. All photocathodes were analysed and then directly exposed to the Xe-flash lamp (no optical fibre, so that the distance to the bulb was only a few mm) for about 30 minutes. 
-%Figure\ref{fig:EDAX} shows the results for the silver photocathode. This does not explain why, even after one week of exposure to air, silver was still bigger than gold at CERN...
+The behaviour of the silver and gold cathode signals growing over time might be related to a phenomenon called ``photoelectric outgassing.'' Millikan and Winchester first noted an increase in the intensity of the photoelectric emission in 1909~\cite{Millikan1909}. One year later, Winch observed a decrease in the threshold frequency\footnote{The threshold frequency $\nu_0$ is linked to the work function $\phi_0$ by the following relation: $\phi_0 = h\nu_0$, 
+where $h$ is the Planck's constant.} and an increase of photoelectric emission of a gold unbaked film with exposure to ultraviolet light~\cite{Winch1930}. In a later paper~\cite{Winch1931}, he reported that the increase in photoelectric emission and the shift of threshold frequency was similar to what observed when metals are heated to stimulate outgassing.
 
-%\begin{figure}[t]
-%    \centering
-%    \includegraphics[width=.8\linewidth]{figures/SilverEDAX.pdf}
-%    \caption{Energy dispersive X-ray analysis of the silver photocathode.}
-%    \label{fig:EDAX}
-%\end{figure}
+We have also noted that once the signal from the silver cathode has outgrown the one from the gold, re-exposing the cathodes to air does not revert the the situation to the original one, as silver still emits more electrons than the gold. 
+In a paper from 1933 Linford~\cite{Linford} reported that in 1929 Suhrmann had showed how electron bombardment removes hydrogen, which heat treatment cannot remove. While water is recharged when a metal film is exposed to air, hydrogen is not (see page 54 of~\cite{Linford}). This is what we believe we have been irreversibly removing from the ``fresh'' gold and silver cathodes. Detailed studies may be be carried in the future to investigate this hypothesis.  
 
 %**********************************************
 \section{Tests in liquid argon}
+\label{sec:tests_liquid}
 %**********************************************
 
 %**********************************************
 \subsection{Measurement of the lifetime of the drifting electrons}
 %**********************************************
-A sample of 500--1000 waveforms (depending on how noisy is the signal), for both cathode and anode, is saved directly by the oscilloscope and then analysed offline using ROOT. The sample is averaged and smoothing applied. In fact, by making the averaged waveform smoother, it is easier to measure $t_1$, $t_2$, and $t_3$, as well as the minimum and maximum of the cathode and anode amplitudes, respectively (remember that these are the only parameters we need for measuring the lifetime). To make our job easier, we also calculate the expected $t_1$, $t_2$, and $t_3$ for the specific electric field applied so that we may know ``ahead'' where to look for the minimum and maximum. Fit?!?
+Using the setup explained in Section~\ref{sec:experimental_setup}, a sample of 1000 traces for both the cathode and the anode is saved directly by the oscilloscope and then analysed offline using a custom C++ programme based on ROOT~\cite{Brun:1997pa}. 
+To remove high frequency noise, the analysis code averages all the traces,  and applies a low-pass filter with a frequency cut ranging from 50\,kHz to 200\,kHz depending on the electric fields applied. 
+Figure~\ref{fig:exampleFilter} shows an example trace before and after a 50\,kHz low pass filter was applied. This filter is particularly relevant at low field as the amplitudes are smaller and it is more difficult to get a precise measure of the $Q_{\rm A}$ and $Q_{\rm C}$. 
+The final step of the analysis code is a fit to the cathode and anode traces to extract the cathode ($Q_{0\rm C}$) and at the anode ($Q_{0\rm A}$) charges after the preamplifiers correction is applied, as well as $t_1$, $t_2$, and $t_3$ (see Appendix~\ref{app:preamps_correction} for the analytical form of the fitting function). 
+Note that we start fitting the cathode trace $t^{\rm theory}_1/2$ to avoid the noise coming from the lamp trigger. 
+A following iteration of this work uses the lamp in internal trigger mode and a photo-diode to trigger the digitiser, this removes the lamp noise almost completely.
 
-PLOT: data 29.05.2018, show an example of waveform for cathode and anode. Fit anode and cathode min. 
+% Below the function that we actually use for the fit
+%  if(x[0]<t0) return baseline;
+%  Double_t start=1./((t1-t0)*((1./T_life)-(1./F_elec)));
+%  Double_t fallExp=TMath::Exp(-1*(x[0]-t0)/F_elec);
+%  Double_t riseExp=TMath::Exp(-1*(x[0]-t0)/T_life);
+%  if(x[0]<t1)
+%    return baseline+Q0*start*(fallExp-riseExp);
+%  Double_t bigExp=fallExp*(1 - TMath::Exp(-1*(t1-t0)*(1./T_life - 1./F_elec)));
+%  return baseline+Q0*start*bigExp;
+%In fact, by making the averaged waveform smoother, it is easier to measure $t_1$, $t_2$, and $t_3$, as well as the minimum and maximum of the cathode and anode amplitudes, respectively (remember that these are the only parameters we need for measuring the lifetime). 
+%To make our job easier, we also calculate the expected $t_1$, $t_2$, and $t_3$ for the specific electric field applied so that we may know ``ahead'' where to look for the minimum and maximum. Fit?!?
+
+%Make a note that noise is bad because we were triggering the lamp externally, say that photodiode improves noise. 
+%PLOT: data 29.05.2018, show an example of waveform for cathode and anode. Fit anode and cathode min. 
+\begin{figure}
+    \centering
+    \includegraphics[width=.65\linewidth]{{./figures/SampleWaveformGold_25.50.100Vcm_filter}.pdf} 
+    \caption{Example of the effect of a 50\,Hz low-pass filter on the anode waveform of a low electric field run.}
+    \label{fig:exampleFilter}
+\end{figure}
 
 \begin{figure}
     \centering
@@ -464,18 +520,41 @@ PLOT: data 29.05.2018, show an example of waveform for cathode and anode. Fit an
     \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformSilver_100.200.400Vcm}.pdf}  \\
         \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformGold_70.140.280Vcm}.pdf} 
     \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformSilver_70.140.280Vcm}.pdf}  \\
-        \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformGold_50.100.200Vcm}.pdf}
+    \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformGold_50.100.200Vcm}.pdf}
     \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformSilver_50.100.200Vcm}.pdf}  \\
         \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformGold_25.50.100Vcm}.pdf} 
     \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformSilver_25.50.100Vcm}.pdf}  \\
-    \caption{Liquid Argon example waveforms with gold and silver cathodes. Eventually we will only keep 4 of these plots}
+    \caption{Liquid Argon example traces with gold and silver cathodes. }
     \label{fig:liquidArgon_GoldVsSilver}
 \end{figure}
 
-\subsection{Study of different film depositions in liquid argon}
-Silver, silver tarnished, should we mention something?
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformGold_longFibre_100.200.400Vcm}.pdf} 
+    \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformSilver_longFibre_100.200.400Vcm}.pdf}  \\
+        \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformGold_longFibre_70.140.280Vcm}.pdf} 
+    \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformSilver_longFibre_70.140.280Vcm}.pdf}  \\
+    \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformGold_longFibre_50.100.200Vcm}.pdf}
+    \includegraphics[width=.45\linewidth]{{./figures/SampleWaveformSilver_longFibre_50.100.200Vcm}.pdf}  \\
+    \caption{Liquid Argon example traces with gold and silver cathodes. LONG FIBRE }
+    \label{fig:liquidArgon_longFibre_GoldVsSilver}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.45\linewidth]{figures/LifetimeVSfield_ShortFibre.pdf}
+    \includegraphics[width=.45\linewidth]{figures/LifetimeVSfield_LongFibre.pdf}
+    \caption{Lifetime vs fields}
+    \label{fig:lifetimeVSfields}
+\end{figure}
+
+\subsection{Study of gold and silver photocathodes in liquid argon}
+put long fibre waveform here?
 
 \subsection{Study at different electric fields}
+Schottky effect in liquid argon
+Also comment on the electronic decay time, which gives that ``concave shape'' to the cathode signal. 
 1 PLOT cathode signal as a function of el field
 data of 29.05.2018 and 14.08.2018 and compare (so we see if there is a dependence on the purity)
 look at the GK signal, is it the same amplitude as the cathode?
@@ -485,12 +564,25 @@ look at the GK signal, is it the same amplitude as the cathode?
 \begin{figure}
     \centering
     \includegraphics[width=.7\linewidth]{figures/CathodeScan2018Aug14_ShortFibre_SilverGold.pdf}
-    \caption{Cathode Scan, data from 2018 August 14. Purity wasn't great but we did take quite a few fields so this worked out.}
+    \caption{Cathode Scan, data from 2018 August 14. The purity was so bad that we didn't even see an anode (ie less than 300us). That will have an effect on the cathode amplitude too (see plots below, so maybe it's not the best dataset to use).}
     \label{fig:cathodeScan}
 \end{figure}
 
-\subsection{Further LAr tests}
-It would be good to test the PM (standard size) in LAr again using the modified preamp (longer electronic decay time) and with the photodiode. 
+\begin{figure}
+    \centering
+    \includegraphics[width=.45\linewidth]{figures/CathodeFunctions_field25.pdf}
+    \includegraphics[width=.45\linewidth]{figures/CathodeFunctions_field60.pdf}
+    \caption{Cathode functions for different values of the lifetime, this is to show that the cathode only fit can only really work for very low lifetimes. Talk about how it's easier to distinguish shapes at low fields, but low fields can only be used when you have lots of light... etc...Not sure whether we want to keep this plot in or not. The point here is that there's also so many degeneracies that the fit can only really work when you know all the other parameters well.}
+    \label{fig:cathodeFunctions}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.45\linewidth]{figures/ExampleCathodeOnlyFit.pdf}
+    \includegraphics[width=.45\linewidth]{figures/CathodeOnlyFit_BPRopen.pdf}
+    \caption{Cathode only fits at 60.120.240 V/cm BPR was opened before we left UCL....}
+    \label{fig:cathodeOnlyFits}
+\end{figure}
 
 %**********************************************
 \section{Conclusions}
@@ -500,6 +592,7 @@ It would be good to test the PM (standard size) in LAr again using the modified 
 
 %**********************************************
 \section{Preamplifier correction factor}
+\label{app:preamps_correction}
 %**********************************************
 A charge sensitive preamplifier is an active integrator which takes a current pulse as input and returns a voltage pulse as output. The maximum of the output voltage is proportional to the input charge (i.e. the integrated current). A feedback capacitor $C_f$ between the input and output stores the charge from the detector and amplifies it with gain $1/C_f$ (see later). 
 
@@ -524,7 +617,7 @@ where R and C are the resistance and the capacitance of the circuit respectively
 \begin{equation}
 \tau_{\rm el} = RC
 \end{equation}
-The input function $f(t')$ in eqn~\ref{eq:kernel} is the the current circulating in the preamplifier coming from the detector, which is a step function and for the cathode takes the following form:
+The input function $f(t')$ in Equation~\ref{eq:kernel} is the the current circulating in the preamplifier coming from the detector, which is a step function and for the cathode takes the following form:
 \begin{align}
  I_C(t) &=
   \begin{cases}
@@ -556,7 +649,7 @@ V_{\rm out} (t_1) = G_0 Q_0 \frac{1-\eu^{-\frac{t_1}{\tau_{\rm el}}}}{\frac{t_1}
 The last factor is the correction that needs to be applied to get the real $V_{peak}$ (need to divide the measure voltage peak by the last factor in the equation above).
 
 Now, $\tau_{\rm el}$ is associated with a physical process (the preamplifier discharging before all the charge has traversed the gird-cathode) which is responsible for an electron depletion. Another process contributes to the electron depletion and this is the electronegative impurities present in the liquid which may trap electrons on their way up from the photocathode to the cathode-grid. The decay time constant associated with this process is what we called earlier $\tau$. To stress the difference between this time constant and $\tau_{\rm el}$, let us rename $\tau \equiv \tau_{\rm life}$.
-This means that eqn~\ref{eq:current_cathode} should be rewritten as:
+This means that Equation~\ref{eq:current_cathode} should be rewritten as:
 \begin{align}
  I_C(t) &=
   \begin{cases}
@@ -564,9 +657,8 @@ This means that eqn~\ref{eq:current_cathode} should be rewritten as:
                             & 0 \leq t \leq t_{1} \\
    0        			    & t > t_{1}
   \end{cases}
-  \label{eq:current_cathode}
 \end{align}
-and integrating again eqn~\ref{eq:V_out} with this new expression for the current, we obtain:
+and integrating again Equation~\ref{eq:V_out} with this new expression for the current, we obtain:
 \begin{equation}
 V_{\rm out} (t) = \begin{cases}
 \frac{G_0 Q_0
@@ -592,11 +684,14 @@ We call the factor multiplying the charge and the gain the ``correction factor''
 
 \acknowledgments
 Lorella and Steve from LCN.
-People from workshop.
+People from workshop (Jim, Derek and John). Sameer Al-Kilanifor the filters.
+Mario Motta for helping deriving the correction factors. 
+Nektarios A. PAPADOGIANNIS for the suggestions for the cathode (flatness etc)
 People at FNAL and CERN (Francesco, Stephen, Alan, etc)
 STFC
 AIDA
 Anna's Royal Society
+
 
 \bibliographystyle{JHEP}
 \begingroup
